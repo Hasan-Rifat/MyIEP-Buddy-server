@@ -9,6 +9,9 @@ const dbConnect = require("./utils/db/db");
 // routers
 const user = require("./routers/v1/user/user.router");
 
+// payment
+const payment = require("./routers/v1/payment/payment.router");
+
 dbConnect();
 
 // middleware
@@ -26,7 +29,7 @@ app.use((err, req, res, next) => {
 app.use("/api/v1/user", user);
 
 // payment
-// app.use("/api/v1/payment");
+app.use("/api/v1/payment", payment);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
