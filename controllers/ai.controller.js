@@ -14,7 +14,7 @@ const generateText = async (req, res) => {
       model: "text-davinci-003",
       prompt,
 
-      max_tokens: 2000,
+      max_tokens: 1500,
       temperature: 1,
     });
 
