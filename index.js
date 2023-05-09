@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 const core = require("cors");
 
 // db connection
@@ -8,9 +8,10 @@ const dbConnect = require("./utils/db/db");
 
 // routers
 const user = require("./routers/v1/user/user.router");
-
 // payment
 const payment = require("./routers/v1/payment/payment.router");
+// ai
+const ai = require("./routers/v1/ai/ai.router");
 
 dbConnect();
 
@@ -30,6 +31,9 @@ app.use("/api/v1/user", user);
 
 // payment
 app.use("/api/v1/payment", payment);
+
+// ai
+app.use("/api/v1/ai", ai);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -16,6 +16,7 @@
     "mongodb": "^5.4.0",
     "mongoose": "^7.1.0",
     "nodemon": "^2.0.22",
+    "openai": "^3.2.1",
     "stripe": "^12.4.0"
   }
 }
