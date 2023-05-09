@@ -15,7 +15,7 @@ const generateText = async (req, res) => {
       prompt,
 
       max_tokens: 1500,
-      temperature: 1,
+      temperature: 0.9,
     });
 
     const data = completion.data.choices[0].text;
