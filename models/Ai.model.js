@@ -2,13 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ChatGPT = new Schema({
-  input: {
+  email: {
     type: String,
     required: true,
   },
-  output: {
+  prompt1: {
     type: String,
     required: true,
+  },
+  prompt2: {
+    type: String,
+    required: true,
+  },
+  goal: {
+    type: Boolean,
+    required: true,
+    enum: [true, false],
+    default: false,
   },
 });
 

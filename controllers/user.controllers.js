@@ -124,7 +124,7 @@ module.exports.affiliateUserGet = async (req, res, next) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "User data successful! get", data });
+    res.status(200).json({ message: "User get data successfully", data });
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -150,7 +150,10 @@ module.exports.affiliateUserCreate = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: "User registration successful!", data: newData });
+      .json({
+        message: "affiliate User registration successful!",
+        data: newData,
+      });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -180,7 +183,9 @@ module.exports.affiliateUpdateUser = async (req, res, next) => {
       }
     );
 
-    res.status(200).json({ message: "User update successful!", data });
+    res
+      .status(200)
+      .json({ message: "affiliate User update successful!", data });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -200,7 +205,9 @@ module.exports.affiliateDeleteUser = async (req, res, next) => {
 
     const data = await AffiliateUser.deleteOne({ _id: id });
 
-    res.status(200).json({ message: "User delete successful!", data });
+    res
+      .status(200)
+      .json({ message: "affiliate User delete successful!", data });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
