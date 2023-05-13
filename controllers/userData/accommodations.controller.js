@@ -1,20 +1,20 @@
 const { Configuration, OpenAIApi } = require("openai");
-const Ai = require("../models/Ai.model");
+const Accommodations = require("../../models/userData/Accommodations.model");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
-const generateText = async (req, res) => {
+const accommodationsGenerateText = async (req, res) => {
   try {
-    const { prompt1, prompt2, goal, email } = req.body;
+    const { prompt1, prompt2 } = req.body;
 
     // Generate completion for the first prompt
     const completion1 = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt1,
-      max_tokens: 200,
+      max_tokens: 450,
       temperature: 0,
     });
 
@@ -30,13 +30,27 @@ const generateText = async (req, res) => {
 
     const data2 = completion2.data.choices[0].text;
 
-    // Perform any additional processing or logic with the generated texts
+    res.status(200).json({
+      message: "Text generated successfully",
+      data: {
+        prompt1: data1,
+        prompt2: data2,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-    const text = await Ai.create({
+const crateAccommodations = async (req, res) => {
+  try {
+    const { email, prompt1, prompt2, accommodations } = req.body;
+
+    const text = await Accommodations.create({
       email,
-      prompt1: data1,
-      prompt2: data2,
-      goal,
+      prompt1,
+      prompt2,
+      accommodations,
     });
 
     res.status(200).json({
@@ -49,5 +63,6 @@ const generateText = async (req, res) => {
 };
 
 module.exports = {
-  generateText,
+  accommodationsGenerateText,
+  crateAccommodations,
 };

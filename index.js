@@ -11,7 +11,7 @@ const user = require("./routers/v1/user/user.router");
 // payment
 const payment = require("./routers/v1/payment/payment.router");
 // ai
-const ai = require("./routers/v1/ai/ai.router");
+const userData = require("./routers/v1/userData/userData.router");
 
 dbConnect();
 
@@ -33,7 +33,7 @@ app.use("/api/v1/user", user);
 app.use("/api/v1/payment", payment);
 
 // ai
-app.use("/api/v1/ai", ai);
+app.use("/api/v1/user-data", userData);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
