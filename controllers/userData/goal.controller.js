@@ -44,13 +44,15 @@ const generateText = async (req, res) => {
 
 const crateGoal = async (req, res) => {
   try {
-    const { email, prompt1, prompt2, goal } = req.body;
+    const { email, prompt1, prompt2, goal, goalName, goalId } = req.body;
 
     const text = await Goal.create({
       email,
       prompt1,
       prompt2,
       goal,
+      goalName,
+      goalId,
     });
 
     res.status(200).json({
@@ -62,7 +64,21 @@ const crateGoal = async (req, res) => {
   }
 };
 
+const getGoalData = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const text = await Goal.where({ _id: id });
+
+    res.status(200).json({
+      message: "Text generated successfully",
+      data: text,
+    });
+  } catch (error) {}
+};
+
 module.exports = {
   generateText,
   crateGoal,
+  getGoalData,
 };

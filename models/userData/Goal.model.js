@@ -21,6 +21,14 @@ const goalSchema = new Schema(
       enum: [true, false],
       default: false,
     },
+    goalId: {
+      type: String,
+      required: true,
+    },
+    goalName: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

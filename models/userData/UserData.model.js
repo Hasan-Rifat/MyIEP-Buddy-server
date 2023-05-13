@@ -13,7 +13,7 @@ const dataSchema = new Schema(
       type: String,
       required: true,
     },
-    goal: {
+     goal: {
       type: ObjectId,
       ref: "Goal",
     },
