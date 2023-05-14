@@ -1,5 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
-const Goal = require("../../models/userData/Goal.model");
+const UserData = require("../../models/userData/UserData.model");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -44,16 +44,22 @@ const generateText = async (req, res) => {
 
 const crateGoal = async (req, res) => {
   try {
-    const { email, prompt1, prompt2, goal, goalName, goalId } = req.body;
+    const { id } = req.params;
+    const { prompt1, prompt2, goal, goalName, goalId } = req.body;
 
-    const text = await Goal.create({
-      email,
-      prompt1,
-      prompt2,
-      goal,
-      goalName,
-      goalId,
-    });
+    const text = await UserData.updateOne(
+      { _id: id },
+      {
+        $set: {
+          goal: {
+            prompt1,
+            prompt2,
+            goal,
+          },
+        },
+      },
+      { new: true }
+    );
 
     res.status(200).json({
       message: "Text generated successfully",
@@ -64,21 +70,7 @@ const crateGoal = async (req, res) => {
   }
 };
 
-const getGoalData = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const text = await Goal.where({ _id: id });
-
-    res.status(200).json({
-      message: "Text generated successfully",
-      data: text,
-    });
-  } catch (error) {}
-};
-
 module.exports = {
   generateText,
   crateGoal,
-  getGoalData,
 };

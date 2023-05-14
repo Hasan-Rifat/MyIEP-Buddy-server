@@ -1,5 +1,6 @@
 const { Configuration, OpenAIApi } = require("openai");
 const Present = require("../../models/userData/Present.model");
+const UserData = require("../../models/userData/UserData.model");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -55,18 +56,27 @@ const presentGenerateText = async (req, res) => {
 
 const cratePresent = async (req, res) => {
   try {
-    const { email, prompt1, prompt2, prompt3, present } = req.body;
+    const { id } = req.params;
+    const { prompt1, prompt2, prompt3, present } = req.body;
 
-    const text = await Present.create({
-      email,
-      prompt1,
-      prompt2,
-      prompt3,
-      present,
-    });
+    const text = await UserData.updateOne(
+      { _id: id },
+      {
+        $set: {
+          name: "hasan",
+          present: {
+            prompt1,
+            prompt2,
+            prompt3,
+            present,
+          },
+        },
+      },
+      { new: true }
+    );
 
     res.status(200).json({
-      message: "Text generated successfully",
+      message: "present create successfully",
       data: text,
     });
   } catch (error) {

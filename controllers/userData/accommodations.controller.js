@@ -1,5 +1,6 @@
 const { Configuration, OpenAIApi } = require("openai");
 const Accommodations = require("../../models/userData/Accommodations.model");
+const UserData = require("../../models/userData/UserData.model");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -44,17 +45,25 @@ const accommodationsGenerateText = async (req, res) => {
 
 const crateAccommodations = async (req, res) => {
   try {
-    const { email, prompt1, prompt2, accommodations } = req.body;
+    const { id } = req.params;
+    const { prompt1, prompt2, accommodations } = req.body;
 
-    const text = await Accommodations.create({
-      email,
-      prompt1,
-      prompt2,
-      accommodations,
-    });
+    const text = await UserData.updateOne(
+      { _id: id },
+      {
+        $set: {
+          accommodations: {
+            prompt1,
+            prompt2,
+            accommodations,
+          },
+        },
+      },
+      { new: true }
+    );
 
     res.status(200).json({
-      message: "Text generated successfully",
+      message: "successfully create accommodation ",
       data: text,
     });
   } catch (error) {

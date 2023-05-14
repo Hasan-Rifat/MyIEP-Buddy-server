@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const { ObjectId } = mongoose.Schema.Types;
-
 const dataSchema = new Schema(
   {
     email: {
@@ -13,17 +11,47 @@ const dataSchema = new Schema(
       type: String,
       required: true,
     },
-     goal: {
-      type: ObjectId,
-      ref: "Goal",
+    goal: {
+      prompt1: {
+        type: String,
+      },
+      prompt2: {
+        type: String,
+      },
+      goal: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
     },
     accommodations: {
-      type: ObjectId,
-      ref: "Accommodations",
+      prompt1: {
+        type: String,
+      },
+      prompt2: {
+        type: String,
+      },
+      accommodations: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
     },
     present: {
-      type: ObjectId,
-      ref: "Present",
+      prompt1: {
+        type: String,
+      },
+      prompt2: {
+        type: String,
+      },
+      prompt3: {
+        type: String,
+      },
+      present: {
+        type: Boolean,
+        enum: [true, false],
+        default: false,
+      },
     },
   },
   {
